@@ -22,7 +22,6 @@ public class Main
 {
 
 	private JFrame frmBlackSheepCome;
-	private boolean isWorldHex;
 	private JLabel Lblroundcnt;
 	private int round;
 	private ScrollLabel logLabel;
@@ -105,7 +104,6 @@ public class Main
 		Names.AddName("Matilda");
 		Names.AddName("Jenny");
 		
-		isWorldHex = false;
 		round = 0;
 		initialize();
 		writeMessage("Welcome to Black Sheep.");
@@ -119,10 +117,10 @@ public class Main
 		frmBlackSheepCome.setBounds(100, 100, 700, 450);
 		frmBlackSheepCome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{150, 150, 150, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{150, 40, 150, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_NORMAL};
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frmBlackSheepCome.getContentPane().setLayout(gridBagLayout);
 		
 		JLabel lblInfo = new JLabel("Programowanie Obiektowe projekt 2: Black Sheep. Marcin Szycik 165116");
@@ -171,41 +169,48 @@ public class Main
 		gbc_btnNextRound.gridy = 2;
 		frmBlackSheepCome.getContentPane().add(btnNextRound, gbc_btnNextRound);
 		
-		JButton btnSave = new JButton("Save");
-		GridBagConstraints gbc_btnSave = new GridBagConstraints();
-		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnSave.anchor = GridBagConstraints.NORTH;
-		gbc_btnSave.insets = new Insets(0, 0, 5, 5);
-		gbc_btnSave.gridx = 1;
-		gbc_btnSave.gridy = 2;
-		frmBlackSheepCome.getContentPane().add(btnSave, gbc_btnSave);
-		
-		final JButton btnSwitchToHex = new JButton("Switch to hex");
-		btnSwitchToHex.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
-				isWorldHex = !isWorldHex;
-				btnSwitchToHex.setText("Switch to " + (isWorldHex ? "box" : "hex"));
-			}
-		});
-		GridBagConstraints gbc_btnSwitchToHex = new GridBagConstraints();
-		gbc_btnSwitchToHex.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnSwitchToHex.anchor = GridBagConstraints.NORTH;
-		gbc_btnSwitchToHex.insets = new Insets(0, 0, 5, 5);
-		gbc_btnSwitchToHex.gridx = 2;
-		gbc_btnSwitchToHex.gridy = 2;
-		frmBlackSheepCome.getContentPane().add(btnSwitchToHex, gbc_btnSwitchToHex);
+		JButton button = new JButton("\u2191");
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.anchor = GridBagConstraints.SOUTH;
+		gbc_button.insets = new Insets(0, 0, 5, 5);
+		gbc_button.gridx = 1;
+		gbc_button.gridy = 2;
+		frmBlackSheepCome.getContentPane().add(button, gbc_button);
 		
 		logLabel = new ScrollLabel("<html>");
 		logLabel.setBackground(SystemColor.text);
 		logScrollPane = new JScrollPane(logLabel);
 		GridBagConstraints gbc_logScrollPane = new GridBagConstraints();
-		gbc_logScrollPane.gridheight = 3;
+		gbc_logScrollPane.gridheight = 4;
 		gbc_logScrollPane.fill = GridBagConstraints.BOTH;
 		gbc_logScrollPane.gridx = 3;
 		gbc_logScrollPane.gridy = 1;
 		frmBlackSheepCome.getContentPane().add(logScrollPane, gbc_logScrollPane);
+		
+		JButton btnSave = new JButton("Save");
+		GridBagConstraints gbc_btnSave = new GridBagConstraints();
+		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnSave.anchor = GridBagConstraints.NORTH;
+		gbc_btnSave.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSave.gridx = 2;
+		gbc_btnSave.gridy = 2;
+		frmBlackSheepCome.getContentPane().add(btnSave, gbc_btnSave);
+		
+		JButton btnLeft = new JButton("\u2190");
+		GridBagConstraints gbc_btnLeft = new GridBagConstraints();
+		gbc_btnLeft.anchor = GridBagConstraints.EAST;
+		gbc_btnLeft.insets = new Insets(0, 0, 5, 5);
+		gbc_btnLeft.gridx = 0;
+		gbc_btnLeft.gridy = 3;
+		frmBlackSheepCome.getContentPane().add(btnLeft, gbc_btnLeft);
+		
+		JButton btnRight = new JButton("\u2192");
+		GridBagConstraints gbc_btnRight = new GridBagConstraints();
+		gbc_btnRight.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnRight.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRight.gridx = 2;
+		gbc_btnRight.gridy = 3;
+		frmBlackSheepCome.getContentPane().add(btnRight, gbc_btnRight);
 		
 		JButton btnSpecial = new JButton("Special ability");
 		GridBagConstraints gbc_btnSpecial = new GridBagConstraints();
@@ -213,34 +218,23 @@ public class Main
 		gbc_btnSpecial.anchor = GridBagConstraints.NORTH;
 		gbc_btnSpecial.insets = new Insets(0, 0, 0, 5);
 		gbc_btnSpecial.gridx = 0;
-		gbc_btnSpecial.gridy = 3;
+		gbc_btnSpecial.gridy = 4;
 		frmBlackSheepCome.getContentPane().add(btnSpecial, gbc_btnSpecial);
+		
+		JButton btnNewButton = new JButton("\u2193");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.gridx = 1;
+		gbc_btnNewButton.gridy = 4;
+		frmBlackSheepCome.getContentPane().add(btnNewButton, gbc_btnNewButton);
 		
 		JButton btnLoad = new JButton("Load");
 		GridBagConstraints gbc_btnLoad = new GridBagConstraints();
 		gbc_btnLoad.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnLoad.anchor = GridBagConstraints.NORTH;
 		gbc_btnLoad.insets = new Insets(0, 0, 0, 5);
-		gbc_btnLoad.gridx = 1;
-		gbc_btnLoad.gridy = 3;
+		gbc_btnLoad.gridx = 2;
+		gbc_btnLoad.gridy = 4;
 		frmBlackSheepCome.getContentPane().add(btnLoad, gbc_btnLoad);
-		
-		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
-				System.exit(0);
-			}
-		});
-		GridBagConstraints gbc_btnExit = new GridBagConstraints();
-		gbc_btnExit.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnExit.anchor = GridBagConstraints.NORTH;
-		gbc_btnExit.insets = new Insets(0, 0, 0, 5);
-		gbc_btnExit.gridx = 2;
-		gbc_btnExit.gridy = 3;
-		frmBlackSheepCome.getContentPane().add(btnExit, gbc_btnExit);
-		
-		frmBlackSheepCome.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnNextRound, btnSave, frmBlackSheepCome.getContentPane(), lblInfo}));
 	}
 }

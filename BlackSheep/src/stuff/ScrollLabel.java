@@ -7,6 +7,8 @@ import javax.swing.Scrollable;
 
 public class ScrollLabel extends JLabel implements Scrollable
 {
+	private static final long serialVersionUID = 1L;
+
 	public ScrollLabel(String text)
 	{
 		super(text);
