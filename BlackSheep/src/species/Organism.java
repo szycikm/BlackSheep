@@ -1,8 +1,11 @@
-package stuff;
+package species;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
+import stuff.Coordinates;
+import stuff.Names;
+import stuff.World;
 
 public abstract class Organism
 {
@@ -12,7 +15,7 @@ public abstract class Organism
 	protected int strength;
 	protected int initiative;
 	protected Coordinates position;
-	private static final int ADULT_AGE = 5;
+	protected static final int ADULT_AGE = 5;
 	private	boolean alive;
 
 	public Organism(World fromWorld, int x, int y)

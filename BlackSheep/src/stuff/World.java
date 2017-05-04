@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import species.Organism;
+
 public class World
 {
 	private	ArrayList<Organism> organisms;
@@ -91,9 +93,9 @@ public class World
 		return this.organisms.size();
 	}
 	
-	public void PrintWorld()
+	public ArrayList<Organism> GetOrganisms()
 	{
-		// TODO print world somehow...
+		return organisms;
 	}
 	
 	public String toString()
