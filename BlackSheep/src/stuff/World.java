@@ -30,7 +30,6 @@ public class World
 				return this.organisms.get(i);
 		}
 		return null;
-
 	}
 	
 	public void DoTurn()
