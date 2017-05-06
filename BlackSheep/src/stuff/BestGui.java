@@ -53,7 +53,19 @@ public class BestGui
 		btnNextRound.setEnabled(!state);
 	}
 	
-	private void DrawWorld()
+	private void doHumanTask(HumanTasks task)
+	{
+		Human human = world.getHuman();
+		if(human.isTaskLegal(task))
+		{
+			human.setNextTask(task);
+			Turn();
+		}
+		else
+			Logger.writeMessage("Invalid human task");
+	}
+	
+	private void drawWorld()
 	{
 		panelWorld.removeAll();
 		
@@ -93,7 +105,7 @@ public class BestGui
 		Logger.writeMessage("Population: " + world.getOrganismCount());
 
 		world.doTurn();
-		this.DrawWorld();
+		this.drawWorld();
 		
 		this.setHumanControlsEnabled(world.isHumanAlive());
 		
@@ -218,7 +230,7 @@ public class BestGui
 		
 		// TODO add all other colorful inhabitants of this world
 		
-		this.DrawWorld();
+		this.drawWorld();
 		
 		Logger.writeMessage("Welcome to Black Sheep.");
 	}
@@ -291,14 +303,7 @@ public class BestGui
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				Human human = world.getHuman();
-				if(human.isTaskLegal(HumanTasks.GO_UP))
-				{
-					human.setNextTask(HumanTasks.GO_UP);
-					Turn();
-				}
-				else
-					Logger.writeMessage("Invalid human task");
+				doHumanTask(HumanTasks.GO_UP);
 			}
 		});
 		GridBagConstraints gbc_btnUp = new GridBagConstraints();
@@ -311,14 +316,7 @@ public class BestGui
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				Human human = world.getHuman();
-				if(human.isTaskLegal(HumanTasks.GO_DOWN))
-				{
-					human.setNextTask(HumanTasks.GO_DOWN);
-					Turn();
-				}
-				else
-					Logger.writeMessage("Invalid human task");
+				doHumanTask(HumanTasks.GO_DOWN);
 			}
 		});
 		GridBagConstraints gbc_btnDown = new GridBagConstraints();
@@ -331,14 +329,7 @@ public class BestGui
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				Human human = world.getHuman();
-				if(human.isTaskLegal(HumanTasks.GO_LEFT))
-				{
-					human.setNextTask(HumanTasks.GO_LEFT);
-					Turn();
-				}
-				else
-					Logger.writeMessage("Invalid human task");
+				doHumanTask(HumanTasks.GO_LEFT);
 			}
 		});
 		GridBagConstraints gbc_btnLeft = new GridBagConstraints();
@@ -352,14 +343,7 @@ public class BestGui
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				Human human = world.getHuman();
-				if(human.isTaskLegal(HumanTasks.GO_RIGHT))
-				{
-					human.setNextTask(HumanTasks.GO_RIGHT);
-					Turn();
-				}
-				else
-					Logger.writeMessage("Invalid human task");
+				doHumanTask(HumanTasks.GO_RIGHT);
 			}
 		});
 		GridBagConstraints gbc_btnRight = new GridBagConstraints();
@@ -373,14 +357,7 @@ public class BestGui
 		btnSpecial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				Human human = world.getHuman();
-				if(human.isTaskLegal(HumanTasks.DO_SPECIAL))
-				{
-					human.setNextTask(HumanTasks.DO_SPECIAL);
-					Turn();
-				}
-				else
-					Logger.writeMessage("Invalid human task");
+				doHumanTask(HumanTasks.DO_SPECIAL);
 			}
 		});
 		GridBagConstraints gbc_btnSpecial = new GridBagConstraints();
