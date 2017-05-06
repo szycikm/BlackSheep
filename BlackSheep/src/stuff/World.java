@@ -4,22 +4,34 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import animals.Human;
 import species.Organism;
 
 public class World
 {
 	private	ArrayList<Organism> organisms;
 	private	Coordinates maxxy;
+	private boolean humanAlive = false;
 	
-	public World(int maxx, int maxy)
+	public World(Coordinates maxxy)
 	{
-		this.maxxy.x = maxx;
-		this.maxxy.y = maxy;
+		this.maxxy = maxxy;
+		organisms = new ArrayList<Organism>();
 	}
 	
 	public Coordinates GetMaxXY()
 	{
 		return this.maxxy;
+	}
+	
+	public void setHumanAlive(boolean state)
+	{
+		this.humanAlive = state;
+	}
+	
+	public boolean isHumanAlive()
+	{
+		return this.humanAlive;
 	}
 	
 	public Organism GetOrganismByPosition(Coordinates position)
@@ -28,6 +40,16 @@ public class World
 		{
 			if (this.organisms.get(i).isAlive() && this.organisms.get(i).GetXY().x == position.x && this.organisms.get(i).GetXY().y == position.y)
 				return this.organisms.get(i);
+		}
+		return null;
+	}
+	
+	public Human GetHuman()
+	{
+		for (int i = 0; i < this.GetOrganismCount(); i++)
+		{
+			if (this.organisms.get(i) instanceof Human && this.organisms.get(i).isAlive())
+				return (Human)this.organisms.get(i);
 		}
 		return null;
 	}
@@ -90,11 +112,6 @@ public class World
 	public int GetOrganismCount()
 	{
 		return this.organisms.size();
-	}
-	
-	public ArrayList<Organism> GetOrganisms()
-	{
-		return organisms;
 	}
 	
 	public String toString()
