@@ -1,25 +1,44 @@
 package stuff;
 
 import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.SystemColor;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
+import animals.Antelope;
+import animals.Fox;
 import animals.HumanTasks;
+import animals.Sheep;
+import animals.Turtle;
+import animals.Wolf;
+
 import javax.swing.JSplitPane;
 import javax.swing.BoxLayout;
+
+import plants.Dairy;
+import plants.Grass;
+import plants.Guarana;
+import plants.SosnowskisBorsch;
+import plants.WolfBerries;
+
 import java.awt.Color;
+import java.util.concurrent.ThreadLocalRandom;
 
 import species.Organism;
 import animals.Human;
@@ -28,6 +47,8 @@ public class BestGui
 {
 	private static final int WORLD_SQUARE_MULTIPLIER = 22;
 	private static final int WORLD_SQUARE_SIZE = 20;
+	private static final int ANIMAL_START_MAX = 7;
+	private static final int PLANT_START_MAX = 2;
 	
 	private JFrame frmBlackSheepCome;
 	private JLabel Lblroundcnt;
@@ -228,7 +249,36 @@ public class BestGui
 		world.addOrganism(new Human(world)); // HUMAN AFTER ALL (actually add him first)
 		world.setHumanAlive(true); // yep, he sure seems alive
 		
-		// TODO add all other colorful inhabitants of this world
+		for (int i = 0; i < ThreadLocalRandom.current().nextInt(0, ANIMAL_START_MAX); i++)
+			world.addOrganism(new Wolf(world));
+
+		for (int i = 0; i < ThreadLocalRandom.current().nextInt(0, ANIMAL_START_MAX); i++)
+			world.addOrganism(new Sheep(world));
+
+		for (int i = 0; i < ThreadLocalRandom.current().nextInt(0, ANIMAL_START_MAX); i++)
+			world.addOrganism(new Fox(world));
+
+		for (int i = 0; i < ThreadLocalRandom.current().nextInt(0, ANIMAL_START_MAX); i++)
+			world.addOrganism(new Turtle(world));
+
+		for (int i = 0; i < ThreadLocalRandom.current().nextInt(0, ANIMAL_START_MAX); i++)
+			world.addOrganism(new Antelope(world));
+
+		for (int i = 0; i < ThreadLocalRandom.current().nextInt(0, PLANT_START_MAX); i++)
+			world.addOrganism(new Grass(world));
+
+		for (int i = 0; i < ThreadLocalRandom.current().nextInt(0, PLANT_START_MAX); i++)
+			world.addOrganism(new Dairy(world));
+
+		for (int i = 0; i < ThreadLocalRandom.current().nextInt(0, PLANT_START_MAX); i++)
+			world.addOrganism(new Guarana(world));
+
+		for (int i = 0; i < ThreadLocalRandom.current().nextInt(0, PLANT_START_MAX); i++)
+			world.addOrganism(new WolfBerries(world));
+
+		for (int i = 0; i < ThreadLocalRandom.current().nextInt(0, PLANT_START_MAX); i++)
+			world.addOrganism(new SosnowskisBorsch(world));
+
 		
 		this.drawWorld();
 		
