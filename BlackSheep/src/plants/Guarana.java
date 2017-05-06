@@ -30,16 +30,16 @@ public class Guarana extends Plant
 	}
 	
 	@Override
-	public Organism Clone(World fromWorld, Coordinates position)
+	public Organism clone(World fromWorld, Coordinates position)
 	{
 		return new Guarana(fromWorld, position.x, position.y);
 	}
 	
 	@Override
-	public boolean TryResistAttack(Organism attacker)
+	public boolean tryResistAttack(Organism attacker)
 	{
-		attacker.SetStrength(attacker.GetStrength() + 3);
-		Logger.writeMessage(attacker.Introduce() + " ate " + this.Introduce() + " and is feeling stronger");
+		attacker.setStrength(attacker.getStrength() + 3);
+		Logger.writeMessage(attacker.introduce() + " ate " + this.introduce() + " and is feeling stronger");
 		return false;
 	}
 	

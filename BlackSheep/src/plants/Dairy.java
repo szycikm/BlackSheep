@@ -29,17 +29,17 @@ public class Dairy extends Plant
 	}
 	
 	@Override
-	public Organism Clone(World fromWorld, Coordinates position)
+	public Organism clone(World fromWorld, Coordinates position)
 	{
 		return new Dairy(fromWorld, position.x, position.y);
 	}
 	
 	@Override
-	public void Action()
+	public void action()
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			super.Action();
+			super.action();
 		}
 	}
 	

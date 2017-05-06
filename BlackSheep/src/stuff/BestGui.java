@@ -57,15 +57,15 @@ public class BestGui
 	{
 		panelWorld.removeAll();
 		
-		for (int y = 0; y < world.GetMaxXY().y; y++)
+		for (int y = 0; y < world.getMaxXY().y; y++)
 		{
-			for(int x = 0; x < world.GetMaxXY().x; x++)
+			for(int x = 0; x < world.getMaxXY().x; x++)
 			{
-				Organism org = world.GetOrganismByPosition(new Coordinates(x, y));
-				if(world.GetOrganismByPosition(new Coordinates(x, y)) != null)
+				Organism org = world.getOrganismByPosition(new Coordinates(x, y));
+				if(world.getOrganismByPosition(new Coordinates(x, y)) != null)
 				{
 					// organism stands on this field -> draw it as a label
-					JLabel stander = new JLabel(String.valueOf(org.Draw()));
+					JLabel stander = new JLabel(String.valueOf(org.draw()));
 					stander.setBounds(x*WORLD_SQUARE_MULTIPLIER, y*WORLD_SQUARE_MULTIPLIER, WORLD_SQUARE_SIZE, WORLD_SQUARE_SIZE);
 					stander.setHorizontalAlignment(SwingConstants.CENTER);
 					panelWorld.add(stander);
@@ -90,9 +90,9 @@ public class BestGui
 		round++;
 		Lblroundcnt.setText(String.valueOf(round));
 		Logger.writeMessage("===== Round " + round + " =====");
-		Logger.writeMessage("Population: " + world.GetOrganismCount());
+		Logger.writeMessage("Population: " + world.getOrganismCount());
 
-		world.DoTurn();
+		world.doTurn();
 		this.DrawWorld();
 		
 		this.setHumanControlsEnabled(world.isHumanAlive());
@@ -176,44 +176,44 @@ public class BestGui
 		}
 		
 		// set global names
-		Names.PutSpeciesName('W', "Wolf");
-		Names.PutSpeciesName('S', "Sheep");
-		Names.PutSpeciesName('F', "Fox");
-		Names.PutSpeciesName('T', "Turtle");
-		Names.PutSpeciesName('A', "Antelope");
-		Names.PutSpeciesName('H', "Human");
-		Names.PutSpeciesName('G', "Grass");
-		Names.PutSpeciesName('D', "Dairy");
-		Names.PutSpeciesName('U', "Guarana");
-		Names.PutSpeciesName('B', "Wolf Berries");
-		Names.PutSpeciesName('C', "Sosnowski's Borsch");
-		Names.AddName("Jake");
-		Names.AddName("Winston");
-		Names.AddName("Harry");
-		Names.AddName("Larry");
-		Names.AddName("Lenny");
-		Names.AddName("Johnny");
-		Names.AddName("Spencer");
-		Names.AddName("Fred");
-		Names.AddName("Joey");
-		Names.AddName("Steve");
-		Names.AddName("Bob");
-		Names.AddName("Mascara");
-		Names.AddName("Mooriela");
-		Names.AddName("Vicky");
-		Names.AddName("Christina");
-		Names.AddName("Vicky");
-		Names.AddName("Daisy");
-		Names.AddName("Elizabeth");
-		Names.AddName("Dolores");
-		Names.AddName("Esmeralda");
-		Names.AddName("Matilda");
-		Names.AddName("Jenny");
+		Names.putSpeciesName('W', "Wolf");
+		Names.putSpeciesName('S', "Sheep");
+		Names.putSpeciesName('F', "Fox");
+		Names.putSpeciesName('T', "Turtle");
+		Names.putSpeciesName('A', "Antelope");
+		Names.putSpeciesName('H', "Human");
+		Names.putSpeciesName('G', "Grass");
+		Names.putSpeciesName('D', "Dairy");
+		Names.putSpeciesName('U', "Guarana");
+		Names.putSpeciesName('B', "Wolf Berries");
+		Names.putSpeciesName('C', "Sosnowski's Borsch");
+		Names.addName("Jake");
+		Names.addName("Winston");
+		Names.addName("Harry");
+		Names.addName("Larry");
+		Names.addName("Lenny");
+		Names.addName("Johnny");
+		Names.addName("Spencer");
+		Names.addName("Fred");
+		Names.addName("Joey");
+		Names.addName("Steve");
+		Names.addName("Bob");
+		Names.addName("Mascara");
+		Names.addName("Mooriela");
+		Names.addName("Vicky");
+		Names.addName("Christina");
+		Names.addName("Vicky");
+		Names.addName("Daisy");
+		Names.addName("Elizabeth");
+		Names.addName("Dolores");
+		Names.addName("Esmeralda");
+		Names.addName("Matilda");
+		Names.addName("Jenny");
 		
 		// create world
 		world = new World(worldxy);
 		
-		world.AddOrganism(new Human(world)); // HUMAN AFTER ALL (actually add him first)
+		world.addOrganism(new Human(world)); // HUMAN AFTER ALL (actually add him first)
 		world.setHumanAlive(true); // yep, he sure seems alive
 		
 		// TODO add all other colorful inhabitants of this world
@@ -239,7 +239,7 @@ public class BestGui
 		ScrollLabel logLabel = new ScrollLabel("<html>");
 		JScrollPane logScrollPane = new JScrollPane(logLabel);
 		splitPane.setRightComponent(logScrollPane);
-		Logger.Initialize(logLabel, logScrollPane);
+		Logger.initialize(logLabel, logScrollPane);
 		
 		JPanel panel = new JPanel();
 		splitPane.setLeftComponent(panel);
@@ -291,7 +291,7 @@ public class BestGui
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				Human human = world.GetHuman();
+				Human human = world.getHuman();
 				if(human.isTaskLegal(HumanTasks.GO_UP))
 				{
 					human.setNextTask(HumanTasks.GO_UP);
@@ -311,7 +311,7 @@ public class BestGui
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				Human human = world.GetHuman();
+				Human human = world.getHuman();
 				if(human.isTaskLegal(HumanTasks.GO_DOWN))
 				{
 					human.setNextTask(HumanTasks.GO_DOWN);
@@ -331,7 +331,7 @@ public class BestGui
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				Human human = world.GetHuman();
+				Human human = world.getHuman();
 				if(human.isTaskLegal(HumanTasks.GO_LEFT))
 				{
 					human.setNextTask(HumanTasks.GO_LEFT);
@@ -352,7 +352,7 @@ public class BestGui
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				Human human = world.GetHuman();
+				Human human = world.getHuman();
 				if(human.isTaskLegal(HumanTasks.GO_RIGHT))
 				{
 					human.setNextTask(HumanTasks.GO_RIGHT);
@@ -373,7 +373,7 @@ public class BestGui
 		btnSpecial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				Human human = world.GetHuman();
+				Human human = world.getHuman();
 				if(human.isTaskLegal(HumanTasks.DO_SPECIAL))
 				{
 					human.setNextTask(HumanTasks.DO_SPECIAL);

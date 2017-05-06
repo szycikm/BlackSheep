@@ -27,52 +27,52 @@ public class Human extends Animal
 	public Human(World fromWorld, int x, int y)
 	{
 		super(fromWorld, x, y);
-		this.Init();
+		this.init();
 	}
 	
 	public Human(World fromWorld)
 	{
 		super(fromWorld);
-		this.Init();
+		this.init();
 	}
 	
 	@Override
-	public Organism Clone(World fromWorld, Coordinates position)
+	public Organism clone(World fromWorld, Coordinates position)
 	{
 		return new Human(fromWorld, position.x, position.y);
 	}
 	
 	@Override
-	public void Action()
+	public void action()
 	{
 		if (this.specialCountdown > 0)
 		{
 			this.specialCountdown--;
 			this.strength--;
-			Logger.writeMessage(this.Introduce() + "'s strength is dropping! " + this.specialCountdown + " turns till normal");
+			Logger.writeMessage(this.introduce() + "'s strength is dropping! " + this.specialCountdown + " turns till normal");
 		}
 
 		switch (this.nextTask)
 		{
 		case GO_UP:
-				Move(new Coordinates(this.position.x, this.position.y - 1));
+				this.move(new Coordinates(this.position.x, this.position.y - 1));
 			break;
 		case GO_DOWN:
-				Move(new Coordinates(this.position.x, this.position.y + 1));
+			this.move(new Coordinates(this.position.x, this.position.y + 1));
 			break;
 		case GO_RIGHT:
-				Move(new Coordinates(this.position.x + 1, this.position.y));
+			this.move(new Coordinates(this.position.x + 1, this.position.y));
 			break;
 		case GO_LEFT:
-				Move(new Coordinates(this.position.x - 1, this.position.y));
+			this.move(new Coordinates(this.position.x - 1, this.position.y));
 			break;
 		case DO_SPECIAL:
-			Logger.writeMessage(this.Introduce() + " used their special ability!");
+			Logger.writeMessage(this.introduce() + " used their special ability!");
 			this.specialCountdown = SPECIAL_COUNTDOWN;
 			this.strength = SPECIAL_STRENGTH;
 			break;
 		default:
-			Logger.writeMessage(this.Introduce() + " had nothing to do this turn");
+			Logger.writeMessage(this.introduce() + " had nothing to do this turn");
 		}
 		
 		this.nextTask = HumanTasks.DO_NOTHING;
@@ -85,11 +85,11 @@ public class Human extends Animal
 		case GO_UP:
 			return this.position.y - 1 >= 0;
 		case GO_DOWN:
-			return this.position.y + 1 < this.fromWorld.GetMaxXY().y;
+			return this.position.y + 1 < this.fromWorld.getMaxXY().y;
 		case GO_LEFT:
 			return this.position.x - 1 >= 0;
 		case GO_RIGHT:
-			return this.position.x + 1 < this.fromWorld.GetMaxXY().x;
+			return this.position.x + 1 < this.fromWorld.getMaxXY().x;
 		case DO_SPECIAL:
 			return this.specialCountdown <= 0;
 		default:
@@ -103,9 +103,9 @@ public class Human extends Animal
 	}
 	
 	@Override
-	public void Die()
+	public void die()
 	{
-		super.Die();
+		super.die();
 		fromWorld.setHumanAlive(false);
 	}
 	
@@ -115,7 +115,7 @@ public class Human extends Animal
 		return super.toString() + ";" + this.specialCountdown;
 	}
 	
-	private void Init()
+	private void init()
 	{
 		this.type = 'H';
 		this.strength = 5;

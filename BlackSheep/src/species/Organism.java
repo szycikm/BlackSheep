@@ -21,63 +21,63 @@ public abstract class Organism
 	public Organism(World fromWorld, int x, int y)
 	{
 		this.fromWorld = fromWorld;
-		this.Init(x, y);
+		this.init(x, y);
 	}
 
 	public Organism(World fromWorld)
 	{
 		this.fromWorld = fromWorld;
-		this.Init(ThreadLocalRandom.current().nextInt(0, fromWorld.GetMaxXY().x), ThreadLocalRandom.current().nextInt(0, fromWorld.GetMaxXY().y));
+		this.init(ThreadLocalRandom.current().nextInt(0, fromWorld.getMaxXY().x), ThreadLocalRandom.current().nextInt(0, fromWorld.getMaxXY().y));
 	}
 	
-	public abstract Organism Clone(World fromWorld, Coordinates position);
+	public abstract Organism clone(World fromWorld, Coordinates position);
 	
-	public abstract void Action();
+	public abstract void action();
 	
-	public abstract String Introduce();
+	public abstract String introduce();
 
-	public boolean TryResistAttack(Organism attacker)
+	public boolean tryResistAttack(Organism attacker)
 	{
 		return false; // standard organisms can't resist attack
 	}
 
-	public char GetType()
+	public char getType()
 	{
 		return this.type;
 	}
 
-	public char Draw()
+	public char draw()
 	{
 		// if organism is below 5 turns draw it small. Just for fun.
-		return this.age < ADULT_AGE ? Names.GetLowercaseSymbol(this.type) : this.type;
+		return this.age < ADULT_AGE ? Names.getLowercaseSymbol(this.type) : this.type;
 	}
 
-	public Coordinates GetXY()
+	public Coordinates getXY()
 	{
 		return this.position;
 	}
 
-	public int GetAge()
+	public int getAge()
 	{
 		return this.age;
 	}
 
-	public int GetStrength()
+	public int getStrength()
 	{
 		return this.strength;
 	}
 
-	public int GetInitiative()
+	public int getInitiative()
 	{
 		return this.initiative;
 	}
 
-	public void IncrementAge()
+	public void incrementAge()
 	{
 		this.age++;
 	}
 
-	public void SetStrength(int strength)
+	public void setStrength(int strength)
 	{
 		this.strength = strength;
 	}
@@ -88,7 +88,7 @@ public abstract class Organism
 	}
 
 	// fly, fly, PIZZA DIE!
-	public void Die()
+	public void die()
 	{
 		this.alive = false; // mark organism as dead
 	}
@@ -100,15 +100,15 @@ public abstract class Organism
 	}
 	
 	// randomizes 2 to 4 new coordinates respecting the world limits
-		protected ArrayList<Coordinates> RandomizeFields()
+		protected ArrayList<Coordinates> randomizeFields()
 		{
 			ArrayList<Coordinates> randomized = new ArrayList<Coordinates>();
 
-			if (this.position.x + 1 < fromWorld.GetMaxXY().x)
+			if (this.position.x + 1 < fromWorld.getMaxXY().x)
 				randomized.add(new Coordinates(this.position.x + 1, this.position.y));
 			if (this.position.x > 0)
 				randomized.add(new Coordinates(this.position.x - 1, this.position.y));
-			if (this.position.y + 1 < fromWorld.GetMaxXY().y)
+			if (this.position.y + 1 < fromWorld.getMaxXY().y)
 				randomized.add(new Coordinates(this.position.x, this.position.y + 1));
 			if (this.position.y > 0)
 				randomized.add(new Coordinates(this.position.x, this.position.y - 1));
@@ -117,7 +117,7 @@ public abstract class Organism
 			return randomized;
 		}
 		
-	private void Init(int x, int y)
+	private void init(int x, int y)
 	{
 		this.position = new Coordinates(x, y);
 		this.age = 0;

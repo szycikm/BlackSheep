@@ -13,7 +13,7 @@ public final class Logger
 		initialized = false;
 	}
 	
-	public static void Initialize(ScrollLabel logLabel, JScrollPane logScrollPane)
+	public static void initialize(ScrollLabel logLabel, JScrollPane logScrollPane)
 	{
 		Logger.logLabel = logLabel;
 		Logger.logScrollPane = logScrollPane;

@@ -20,45 +20,45 @@ public class Antelope extends Animal
 	public Antelope(World fromWorld, int x, int y)
 	{
 		super(fromWorld, x, y);
-		this.Init();
+		this.init();
 	}
 	
 	public Antelope(World fromWorld)
 	{
 		super(fromWorld);
-		this.Init();
+		this.init();
 	}
 	
 	@Override
-	public Organism Clone(World fromWorld, Coordinates position)
+	public Organism clone(World fromWorld, Coordinates position)
 	{
 		return new Antelope(fromWorld, position.x, position.y);
 	}
 	
 	@Override
-	public void Action()
+	public void action()
 	{
 		for (int i = 0; i < 2; i++)
 		{
 			if(this.isAlive())
-				this.Move(this.RandomizeField());
+				this.move(this.randomizeField());
 		}
 
 	}
 	
 	@Override
-	public boolean TryResistAttack(Organism attacker)
+	public boolean tryResistAttack(Organism attacker)
 	{
-		for (Coordinates newPosition : this.RandomizeFields())
+		for (Coordinates newPosition : this.randomizeFields())
 		{
-			if (this.fromWorld.GetOrganismByPosition(newPosition) == null)
+			if (this.fromWorld.getOrganismByPosition(newPosition) == null)
 			{
-				this.Move(newPosition);
-				Logger.writeMessage(this.Introduce() + " got away from " + attacker.Introduce());
+				this.move(newPosition);
+				Logger.writeMessage(this.introduce() + " got away from " + attacker.introduce());
 				return true;
 			}
 		}
-		Logger.writeMessage(this.Introduce() + " tried to get away, but you can't hide from " + attacker.Introduce());
+		Logger.writeMessage(this.introduce() + " tried to get away, but you can't hide from " + attacker.introduce());
 		return false;
 
 	}
@@ -69,7 +69,7 @@ public class Antelope extends Animal
 		return super.toString() + ";";
 	}
 	
-	private void Init()
+	private void init()
 	{
 		this.type = 'A';
 		this.strength = 4;

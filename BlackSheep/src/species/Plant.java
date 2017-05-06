@@ -18,16 +18,16 @@ public abstract class Plant extends Organism
 	}
 	
 	@Override
-	public void Action()
+	public void action()
 	{
 		// 1/4 chance to do anything
 		if (ThreadLocalRandom.current().nextInt(0, 3) > 2)
 		{
-			for (Coordinates pos : RandomizeFields())
+			for (Coordinates pos : randomizeFields())
 			{
-				if (this.fromWorld.GetOrganismByPosition(pos) == null)
+				if (this.fromWorld.getOrganismByPosition(pos) == null)
 				{
-					this.fromWorld.AddOrganism(this.Clone(this.fromWorld, pos));
+					this.fromWorld.addOrganism(this.clone(this.fromWorld, pos));
 					return; // end turn after successful sew
 				}
 			}
@@ -35,9 +35,9 @@ public abstract class Plant extends Organism
 	}
 	
 	@Override
-	public String Introduce()
+	public String introduce()
 	{
-		return Names.GetSpeciesName(this.type);
+		return Names.getSpeciesName(this.type);
 	}
 	
 	@Override

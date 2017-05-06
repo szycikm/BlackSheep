@@ -29,7 +29,7 @@ public class Grass extends Plant
 	}
 	
 	@Override
-	public Organism Clone(World fromWorld, Coordinates position)
+	public Organism clone(World fromWorld, Coordinates position)
 	{
 		return new Grass(fromWorld, position.x, position.y);
 	}
