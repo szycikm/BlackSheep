@@ -7,29 +7,36 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.SystemColor;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import animals.Antelope;
 import animals.Fox;
 import animals.HumanTasks;
 import animals.Sheep;
 import animals.Turtle;
 import animals.Wolf;
+
 import javax.swing.JSplitPane;
 import javax.swing.BoxLayout;
+
 import plants.Dairy;
 import plants.Grass;
 import plants.Guarana;
 import plants.SosnowskisBorsch;
 import plants.WolfBerries;
+
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,6 +44,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.concurrent.ThreadLocalRandom;
+
 import species.Organism;
 import animals.Human;
 
@@ -103,7 +111,65 @@ public class BestGui
 				else
 				{
 					// nothing stands on this field -> draw a button
+					final int orgx = x;
+					final int orgy = y;
 					JButton plus = new JButton("+");
+					plus.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0)
+						{
+							int input = JOptionPane.showOptionDialog(null, "Choose organism", "Add organism", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {
+									"Wolf", "Sheep", "Fox", "Turtle", "Antelope", "Human", "Grass", "Dairy", "Guarana", "Wolf Berries", "Sosnowski's Borsch"
+									}, "Wolf");
+							
+							switch(input)
+							{
+							case 0:
+								world.addOrganism(new Wolf(world, orgx, orgy));
+								break;
+							case 1:
+								world.addOrganism(new Sheep(world, orgx, orgy));
+								break;
+							case 2:
+								world.addOrganism(new Fox(world, orgx, orgy));
+								break;
+							case 3:
+								world.addOrganism(new Turtle(world, orgx, orgy));
+								break;
+							case 4:
+								world.addOrganism(new Antelope(world, orgx, orgy));
+								break;
+							case 5:
+								if(!world.isHumanAlive())
+								{
+									world.addOrganism(new Human(world, orgx, orgy));
+									world.setHumanAlive(true);
+									setHumanControlsEnabled(world.isHumanAlive());
+								}
+								else
+								{
+									JOptionPane.showMessageDialog(null, "Can't add another human");
+								}
+								break;
+							case 6:
+								world.addOrganism(new Grass(world, orgx, orgy));
+								break;
+							case 7:
+								world.addOrganism(new Dairy(world, orgx, orgy));
+								break;
+							case 8:
+								world.addOrganism(new Guarana(world, orgx, orgy));
+								break;
+							case 9:
+								world.addOrganism(new WolfBerries(world, orgx, orgy));
+								break;
+							case 10:
+								world.addOrganism(new SosnowskisBorsch(world, orgx, orgy));
+								break;
+							}
+							
+							drawWorld();
+						}
+					});
 					plus.setBounds(x*WORLD_SQUARE_MULTIPLIER, y*WORLD_SQUARE_MULTIPLIER, WORLD_SQUARE_SIZE, WORLD_SQUARE_SIZE);
 					plus.setBorder(null);
 					panelWorld.add(plus);
