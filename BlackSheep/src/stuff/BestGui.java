@@ -7,39 +7,36 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
 import java.awt.SystemColor;
-
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
 import animals.Antelope;
 import animals.Fox;
 import animals.HumanTasks;
 import animals.Sheep;
 import animals.Turtle;
 import animals.Wolf;
-
 import javax.swing.JSplitPane;
 import javax.swing.BoxLayout;
-
 import plants.Dairy;
 import plants.Grass;
 import plants.Guarana;
 import plants.SosnowskisBorsch;
 import plants.WolfBerries;
-
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.concurrent.ThreadLocalRandom;
-
 import species.Organism;
 import animals.Human;
 
@@ -122,7 +119,7 @@ public class BestGui
 	{
 		round++;
 		Lblroundcnt.setText(String.valueOf(round));
-		Logger.writeMessage("===== Round " + round + " =====");
+		Logger.writeMessage("======= Round " + round + " =======");
 		Logger.writeMessage("Population: " + world.getOrganismCount());
 
 		world.doTurn();
@@ -130,7 +127,7 @@ public class BestGui
 		
 		this.setHumanControlsEnabled(world.isHumanAlive());
 		
-		Logger.writeMessage("===== Round " + round + " ended =====");
+		Logger.writeMessage("+++++ Round " + round + " ended +++++");
 	}
 	
 	public static void main(String[] args)
@@ -421,7 +418,17 @@ public class BestGui
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				// TODO save
+				try{
+				    PrintWriter writer = new PrintWriter(System.getProperty("user.dir") + "\\save.dat", "UTF-8");
+				    writer.println(round);
+				    writer.println(world.toString());
+				    writer.close();
+				    Logger.writeMessage("Saved world state");
+				}
+				catch (IOException e)
+				{
+					Logger.writeMessage("Cannot save: " + e.getMessage());
+				}
 			}
 		});
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
@@ -435,7 +442,93 @@ public class BestGui
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				// TODO load
+				try
+				{
+					BufferedReader br = new BufferedReader(new FileReader(new File(System.getProperty("user.dir") + "\\save.dat")));
+					round = Integer.parseInt(br.readLine());
+					int worldx = Integer.parseInt(br.readLine());
+					int worldy = Integer.parseInt(br.readLine());
+					world = new World(new Coordinates(worldx, worldy));
+					boolean loadHumanAlive = false;
+					String line = null;
+					while ((line = br.readLine()) != null)
+					{
+						String[] spliteded = null;
+						try
+						{
+							spliteded = line.split(";", -1);
+						}
+						catch(Exception ex)
+						{
+							// something wrong with stupid split
+							continue;
+						}
+						char type = spliteded[0].charAt(0);
+						int age = Integer.parseInt(spliteded[1]);
+						int strength = Integer.parseInt(spliteded[2]);
+						int initiative = Integer.parseInt(spliteded[3]);
+						int posx = Integer.parseInt(spliteded[4]);
+						int posy = Integer.parseInt(spliteded[5]);
+						String name = spliteded[6];
+						int countdown = 0;
+						try
+						{
+							countdown = Integer.parseInt(spliteded[7]);
+						}
+						catch(NumberFormatException ex)
+						{
+							// nothing to parse
+						}
+
+						switch(type)
+						{
+						case 'W':
+							world.addOrganism(new Wolf(world, posx, posy, age, strength, initiative, name));
+							break;
+						case 'S':
+							world.addOrganism(new Sheep(world, posx, posy, age, strength, initiative, name));
+							break;
+						case 'F':
+							world.addOrganism(new Fox(world, posx, posy, age, strength, initiative, name));
+							break;
+						case 'T':
+							world.addOrganism(new Turtle(world, posx, posy, age, strength, initiative, name));
+							break;
+						case 'A':
+							world.addOrganism(new Antelope(world, posx, posy, age, strength, initiative, name));
+							break;
+						case 'H':
+							world.addOrganism(new Human(world, posx, posy, age, strength, initiative, name, countdown));
+							loadHumanAlive = true;
+							break;
+						case 'G':
+							world.addOrganism(new Grass(world, posx, posy, age, strength, initiative));
+							break;
+						case 'D':
+							world.addOrganism(new Dairy(world, posx, posy, age, strength, initiative));
+							break;
+						case 'U':
+							world.addOrganism(new Guarana(world, posx, posy, age, strength, initiative));
+							break;
+						case 'B':
+							world.addOrganism(new WolfBerries(world, posx, posy, age, strength, initiative));
+							break;
+						case 'C':
+							world.addOrganism(new SosnowskisBorsch(world, posx, posy, age, strength, initiative));
+							break;
+						}
+					}
+					br.close();
+					
+					drawWorld();
+					world.setHumanAlive(loadHumanAlive);
+					setHumanControlsEnabled(world.isHumanAlive());
+					Logger.writeMessage("Loaded world state");
+				}
+				catch (IOException e)
+				{
+					Logger.writeMessage("Cannot load: " + e.getMessage());
+				}	
 			}
 		});
 		GridBagConstraints gbc_btnLoad = new GridBagConstraints();

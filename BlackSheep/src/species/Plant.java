@@ -21,7 +21,7 @@ public abstract class Plant extends Organism
 	public void action()
 	{
 		// 1/4 chance to do anything
-		if (ThreadLocalRandom.current().nextInt(0, 3) > 2)
+		if (ThreadLocalRandom.current().nextInt(0, 3) == 0)
 		{
 			for (Coordinates pos : randomizeFields())
 			{

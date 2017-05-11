@@ -116,10 +116,10 @@ public class World
 	
 	public String toString()
 	{
-		String everything = this.maxxy.x + "\n" + this.maxxy.y + "\n";
+		String everything = this.maxxy.x + "\n" + this.maxxy.y;
 		for (int i = 0; i < this.getOrganismCount(); i++)
 		{
-			everything += this.organisms.get(i).toString() + "\n";
+			everything += "\n" + this.organisms.get(i).toString();
 		}
 		return everything;
 	}

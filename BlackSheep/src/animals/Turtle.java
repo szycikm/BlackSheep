@@ -49,7 +49,7 @@ public class Turtle extends Animal
 	public void action()
 	{
 		// turtle moves with 25% chance
-		if (ThreadLocalRandom.current().nextInt(0, 3) > 2)
+		if (ThreadLocalRandom.current().nextInt(0, 3) == 0)
 			super.action();
 		else
 			Logger.writeMessage(this.introduce() + " decided not to move");
