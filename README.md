@@ -1,5 +1,7 @@
 # BlackSheep
 Second project for Objective Programming class, second semester on Gdańsk University of Technology
+# Download
+https://github.com/szycikm/BlackSheep/releases/latest
 # Infos
 This is basically https://github.com/szycikm/Sheep but this time in Java and with GUI. I didn't come up with this :D
 
